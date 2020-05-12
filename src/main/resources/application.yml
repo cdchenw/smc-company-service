@@ -1,0 +1,24 @@
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:3001/eureka/
+      
+spring:
+  application:
+    name: smc-company-service
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:33061/smcdb
+    username: admin
+    password: passw0rd
+  cloud:
+    discovery:
+      enabled: false
+
+server:
+  port: 3003
+  servlet:
+    context-path: /api
+    
+debug: false
