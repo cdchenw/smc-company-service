@@ -1,15 +1,25 @@
 package com.smc.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+
+/**
+ * 
+ * @Description: Company entity for JPA persist that mapping to tb_company table,
+ *               Meanwhile it's taken as the request/response DTO object.
+ * @author Chen Wei
+ * @date May 18, 2020
+ *
+ */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_company")
@@ -20,8 +30,8 @@ public class Company {
 	private String id;
 
 	@Column(name = "name", length = 32)
-	@NotNull
-	@Size(min = 3, max = 128)
+	@NotBlank(message = "{company.name.required}")
+	@Size(min = 3, max = 128, message = "{company.name.outrange}")
 	private String name;
 
 	@Column(name = "turn_over")
@@ -43,11 +53,11 @@ public class Company {
 	@JoinTable(name = "tb_company_sector", 
 		joinColumns = @JoinColumn(name = "tb_company_id"), 
 		inverseJoinColumns = @JoinColumn(name = "tb_sector_id"))
-	private List<Sector> sectors;
+	private List<Sector> sectors = new ArrayList<Sector>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="comp_id") 
-	private List<CompanyExchange> companyExchanges;
+	private List<CompanyExchange> companyExchanges = new ArrayList<CompanyExchange>();
 
 	public String getId() {
 		return id;
@@ -110,14 +120,6 @@ public class Company {
 	}
 
 	public void setCompanyExchanges(List<CompanyExchange> companyExchanges) {
-		if (this.companyExchanges == null) {
-			this.companyExchanges = companyExchanges;
-		} else if (this.companyExchanges != companyExchanges) {
-			this.companyExchanges.clear();
-			if (companyExchanges != null) {
-				this.companyExchanges.addAll(companyExchanges);
-			}
-		}
 		this.companyExchanges = companyExchanges;
 	}
 }
