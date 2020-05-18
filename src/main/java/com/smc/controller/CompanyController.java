@@ -20,7 +20,7 @@ import com.smc.service.CompanyService;
 
 /**
  * 
- * @Description: Rest API controller for company service.
+ * @Description: Rest API controller class for company.
  * @author Chen Wei
  * @date May 18, 2020
  *
@@ -77,7 +77,7 @@ public class CompanyController {
 	 * @return ResponseEntity<Company> JSON format response with company entity
 	 */
 	@PutMapping("/{id}")
-	public ResponseEntity<Company> update(@RequestBody Company company, @PathVariable String id) {
+	public ResponseEntity<Company> update(@RequestBody @Validated Company company, @PathVariable String id) {
 		company.setId(id);
 		Company companyEntity = this.companyService.updateCompany(company);
 		return ResponseEntity.ok(companyEntity);

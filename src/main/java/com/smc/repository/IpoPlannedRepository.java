@@ -8,17 +8,25 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.smc.model.IpoPlanned;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
-
+/**
+ * 
+ * @Description: IPO plan DAO interface for CRUD refers Create, Read, Update,
+ *               Delete, this will be auto implemented by spring into a bean
+ *               called ipoPlannedRepository
+ * @author Chen Wei
+ * @date May 18, 2020
+ *
+ */
 public interface IpoPlannedRepository extends CrudRepository<IpoPlanned, String> {
 	
+	
+	/**
+	 * 
+	 * @Title: fetchSortedAllIpoPlans method
+	 * @Description: define the fetch all sorted IPO plans method that will auto implemented by spring.
+	 * @return List<IpoPlanned> list of IPO plan entity
+	 */
 	@Query(value="select i.* from tb_ipo_planned i order by open_date desc", nativeQuery = true)
 	List<IpoPlanned> fetchSortedAllIpoPlans();  
 	
-//	@Modifying
-//	@Transactional
-//	@Query(value="update tb_ipo_planned i set i.order by open_date desc", nativeQuery = true)
-//	List<IpoPlanned> updateIpoPlan(IpoPlanned ipoPlanned);  
-
 }

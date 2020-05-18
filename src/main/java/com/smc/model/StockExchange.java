@@ -8,7 +8,14 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-
+/**
+ * 
+ * @Description: Stock exchange entity for JPA persist that mapping to tb_stock_exchange table,
+ *               Meanwhile it's taken as the request/response DTO object.
+ * @author Chen Wei
+ * @date May 18, 2020
+ *
+ */
 @Entity 
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_stock_exchange")

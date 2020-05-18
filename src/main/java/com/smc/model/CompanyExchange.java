@@ -7,6 +7,15 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+/**
+ * 
+ * @Description: Company Exchange entity for JPA persist that mapping to tb_company_exchange table,
+ * 				 Its the middle table of many to many ,but because have extra column, we mapping with two 1:oo and 1:1
+ *               Meanwhile it's taken as the request/response DTO object.
+ * @author Chen Wei
+ * @date May 18, 2020
+ *
+ */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_company_exchange")

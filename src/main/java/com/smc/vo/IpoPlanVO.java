@@ -7,6 +7,13 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+/**
+ * 
+ * @Description: IPO plan for request/response DTO object.
+ * @author Chen Wei
+ * @date May 18, 2020
+ *
+ */
 public class IpoPlanVO {
 	private String id;
 

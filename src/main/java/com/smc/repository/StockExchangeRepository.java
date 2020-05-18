@@ -6,11 +6,23 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.smc.model.StockExchange;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
-
+/**
+ * 
+ * @Description: Stock Exchange DAO interface for CRUD refers Create, Read, Update,
+ *               Delete, this will be auto implemented by spring into a bean
+ *               called stockExchangeRepository
+ * @author Chen Wei
+ * @date May 18, 2020
+ *
+ */
 public interface StockExchangeRepository extends CrudRepository<StockExchange, String> {
 	
+	/**
+	 * 
+	 * @Title: findAll method
+	 * @Description: override the find all companies method that will auto implemented by spring.
+	 * @return List<StockExchange> list of stock exchange entity
+	 */
 	List<StockExchange> findAll();   
 	
 }

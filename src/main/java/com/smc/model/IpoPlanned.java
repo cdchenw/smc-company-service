@@ -8,6 +8,14 @@ import javax.validation.constraints.Size;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+/**
+ * 
+ * @Description: IPO plan entity for JPA persist that mapping to tb_ipo_planned table,
+ *               Meanwhile it's taken as the request/response DTO object.
+ * @author Chen Wei
+ * @date May 18, 2020
+ *
+ */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_ipo_planned")

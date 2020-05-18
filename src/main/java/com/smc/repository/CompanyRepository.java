@@ -7,7 +7,7 @@ import com.smc.model.Company;
 
 /**
  * 
- * @Description: Company dao interface for CRUD refers Create, Read, Update,
+ * @Description: Company DAO interface for CRUD refers Create, Read, Update,
  *               Delete, this will be auto implemented by spring into a bean
  *               called companyRepository
  * @author Chen Wei
