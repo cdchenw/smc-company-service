@@ -19,7 +19,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_ipo_planned")
-public class IpoPlanned {
+@PrimaryKeyJoinColumn(name="id")
+@DiscriminatorValue("tb_ipo_planned")
+public class IpoPlanned extends CompanyExchange{
+
 	@Id
 	@Column(name = "id")
 	private String id;
@@ -36,10 +39,6 @@ public class IpoPlanned {
 	@Column(name = "remarks", length = 256)
 	@Size(min = 0, max = 256)
 	private String remarks;
-
-	@OneToOne
-	@PrimaryKeyJoinColumn(name="id", referencedColumnName="id")
-	private CompanyExchange companyExchange;
 
 	public String getId() {
 		return id;
@@ -80,13 +79,4 @@ public class IpoPlanned {
 	public void setRemars(String remarks) {
 		this.remarks = remarks;
 	}
-
-	public CompanyExchange getCompanyExchange() {
-		return companyExchange;
-	}
-
-	public void setCompanyExchange(CompanyExchange companyExchange) {
-		this.companyExchange = companyExchange;
-	}
-	
 }

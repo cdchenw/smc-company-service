@@ -41,7 +41,7 @@ public class IpoPlannedService {
 	 * @return List<Company> list of company entity
 	 */
 	public List<IpoPlanned> findAll() {
-		List<IpoPlanned> listIpoPlanned = this.ipoPlannedRepository.fetchSortedAllIpoPlans();
+		List<IpoPlanned> listIpoPlanned = this.ipoPlannedRepository.findAll();//.fetchSortedAllIpoPlans();
 		return listIpoPlanned;
 	}
 	

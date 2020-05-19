@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.smc.model.Company;
 import com.smc.model.IpoPlanned;
 
 /**
@@ -26,7 +27,8 @@ public interface IpoPlannedRepository extends CrudRepository<IpoPlanned, String>
 	 * @Description: define the fetch all sorted IPO plans method that will auto implemented by spring.
 	 * @return List<IpoPlanned> list of IPO plan entity
 	 */
-	@Query(value="select i.* from tb_ipo_planned i order by open_date desc", nativeQuery = true)
-	List<IpoPlanned> fetchSortedAllIpoPlans();  
+//	@Query(value="select i.* from tb_ipo_planned i order by i.open_date desc", nativeQuery = true)
+//	List<IpoPlanned> fetchSortedAllIpoPlans();  
+	List<IpoPlanned> findAll();
 	
 }
