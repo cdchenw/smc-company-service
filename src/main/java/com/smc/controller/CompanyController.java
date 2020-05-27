@@ -2,6 +2,8 @@ package com.smc.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +31,8 @@ import com.smc.service.CompanyService;
 @RestController
 @RequestMapping("/company")
 public class CompanyController {
+	private static Logger logger = LoggerFactory.getLogger(CompanyController.class);
+	
 	@Autowired
 	private CompanyService companyService;
 
@@ -37,8 +42,10 @@ public class CompanyController {
 	 * @Description: Query method: Find out all companies
 	 * @return List<Company> JSON format response with company entity List
 	 */
+	//@RequestAttribute("currentuser") Object currentuser
 	@GetMapping
 	public List<Company> findAllCompanies() {
+//		logger.info("current user>>>", currentuser);
 		return this.companyService.findAllCompanies();
 	}
 
