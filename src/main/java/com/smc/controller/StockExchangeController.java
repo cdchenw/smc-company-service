@@ -27,7 +27,7 @@ import com.smc.service.StockExchangeService;
  */
 
 @RestController
-@RequestMapping("/exchange")
+@RequestMapping("/company/exchange")
 public class StockExchangeController {
 	@Autowired
 	private StockExchangeService stockExchangeService;
