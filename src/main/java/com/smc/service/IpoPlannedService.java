@@ -67,24 +67,22 @@ public class IpoPlannedService {
 	public IpoPlanned addIpoPlanned(IpoPlanVO ipoPlanVO) throws Exception {
 		StockExchange stockExchange = new StockExchange();
 		stockExchange.setId(ipoPlanVO.getExchangeId());
+		
 		List<CompanyExchange> listCompanyExchange = this.companyExchangeRepository.findByCompIdAndStockExchange(ipoPlanVO.getCompId(), stockExchange);
 		
+		IpoPlanned ipoPlanned = new IpoPlanned();
+		ipoPlanned.setPricePerShare(ipoPlanVO.getPricePerShare());
+		ipoPlanned.setTotalShare(ipoPlanVO.getTotalShare());
+		ipoPlanned.setOpenDate(ipoPlanVO.getOpenDate());
+		ipoPlanned.setRemarks(ipoPlanVO.getRemarks());
+		
 		if(listCompanyExchange!=null && listCompanyExchange.size()>0) {
-			String compExchangeId = listCompanyExchange.get(0).getId();
-			
-			logger.info("found compExchangeId in db", compExchangeId);
-			
-			IpoPlanned ipoPlanned = new IpoPlanned();
-			ipoPlanned.setId(compExchangeId);
-			ipoPlanned.setPricePerShare(ipoPlanVO.getPricePerShare());
-			ipoPlanned.setTotalShare(ipoPlanVO.getTotalShare());
-			ipoPlanned.setOpenDate(ipoPlanVO.getOpenDate());
-			ipoPlanned.setRemars(ipoPlanVO.getRemarks());
-			
-			
+			CompanyExchange cExchange = listCompanyExchange.get(0);
+			ipoPlanned.setId(cExchange.getId());
+			logger.info("found compExchangeId in db", cExchange.getId());
 			return this.ipoPlannedRepository.save(ipoPlanned);
 		}else {
-			throw new Exception("Cann't fetch valid data, because of incorrect stock code and exchange id mapping");
+			throw new Exception("What your selected company have not regist with what your selected stock exchange, please add it in company management function first!");
 		}
 	}
 	
@@ -97,8 +95,18 @@ public class IpoPlannedService {
 	 */
 	@Transactional
 	public IpoPlanned updateIpoPlanned(IpoPlanVO ipoPlanVO) throws Exception {
-		this.ipoPlannedRepository.deleteById(ipoPlanVO.getId());
-		return this.addIpoPlanned(ipoPlanVO);
+		
+		Optional<IpoPlanned> optIpoplaned = this.ipoPlannedRepository.findById(ipoPlanVO.getId());
+		if(optIpoplaned.isPresent()) {
+			IpoPlanned ipoPlanned = optIpoplaned.get();
+			ipoPlanned.setPricePerShare(ipoPlanVO.getPricePerShare());
+			ipoPlanned.setTotalShare(ipoPlanVO.getTotalShare());
+			ipoPlanned.setOpenDate(ipoPlanVO.getOpenDate());
+			ipoPlanned.setRemarks(ipoPlanVO.getRemarks());
+			return this.ipoPlannedRepository.save(ipoPlanned);
+		}else {
+			throw new Exception("Can't find the give primary key!");
+		}
 	}
 
 	/**

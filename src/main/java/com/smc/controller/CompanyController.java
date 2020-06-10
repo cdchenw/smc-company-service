@@ -1,6 +1,8 @@
 package com.smc.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,9 +85,8 @@ public class CompanyController {
 	 * @param id company id
 	 * @return ResponseEntity<Company> JSON format response with company entity
 	 */
-	@PutMapping("/{id}")
-	public ResponseEntity<Company> update(@RequestBody @Validated Company company, @PathVariable String id) {
-		company.setId(id);
+	@PutMapping
+	public ResponseEntity<Company> update(@RequestBody @Validated Company company) {
 		Company companyEntity = this.companyService.updateCompany(company);
 		return ResponseEntity.ok(companyEntity);
 	}
@@ -98,8 +99,10 @@ public class CompanyController {
 	 * @return ResponseEntity<String> JSON format response with delete success message
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable String id) {
+	public ResponseEntity<Map<String, String>> delete(@PathVariable String id) {
 		this.companyService.delete(id);
-		return ResponseEntity.ok("Delete company successfully.");
+		Map<String, String> rsMap= new HashMap<String, String>();
+		rsMap.put("message", "Successfully delete company with id=" + id);
+		return ResponseEntity.ok(rsMap);
 	}
 }

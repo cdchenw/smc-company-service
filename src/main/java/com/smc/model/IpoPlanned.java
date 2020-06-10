@@ -1,5 +1,6 @@
 package com.smc.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
@@ -19,13 +20,19 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_ipo_planned")
-@PrimaryKeyJoinColumn(name="id")
-@DiscriminatorValue("tb_ipo_planned")
-public class IpoPlanned extends CompanyExchange{
+//@PrimaryKeyJoinColumn(name="ce_id")
+//@DiscriminatorValue("tb_ipo_planned")
+public class IpoPlanned implements Serializable{// extends CompanyExchange{
+
+	private static final long serialVersionUID = 624852327712974139L;
 
 	@Id
-	@Column(name = "id")
-	private String id;
+    @Column(name = "id")
+    private String id;
+	
+	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	@JoinColumn(name = "id") 
+    private CompanyExchange companyExchange;
 
 	@Column(name = "price_per_share")
 	private BigDecimal pricePerShare;
@@ -41,11 +48,19 @@ public class IpoPlanned extends CompanyExchange{
 	private String remarks;
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public CompanyExchange getCompanyExchange() {
+		return companyExchange;
+	}
+
+	public void setCompanyExchange(CompanyExchange companyExchange) {
+		this.companyExchange = companyExchange;
 	}
 
 	public BigDecimal getPricePerShare() {
@@ -76,7 +91,8 @@ public class IpoPlanned extends CompanyExchange{
 		return remarks;
 	}
 
-	public void setRemars(String remarks) {
+	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+
 }

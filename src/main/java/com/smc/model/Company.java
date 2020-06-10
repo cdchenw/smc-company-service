@@ -45,8 +45,8 @@ public class Company {
 	@Size(min = 0, max = 256)
 	private String boardOfDirectors;
 	
-	@Column(name = "brief_write_up", length = 256)
-	@Size(min = 0, max = 256)
+	@Column(name = "brief_write_up", length = 512)
+	@Size(min = 0, max = 512)
 	private String briefWriteUp;
 
 	@ManyToMany

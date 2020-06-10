@@ -19,8 +19,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_company_exchange")
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorValue("tb_company_exchange")
+//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)  //JOIN
+//@DiscriminatorValue("tb_company_exchange")
 public class CompanyExchange {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO, generator = "system-uuid")
@@ -35,10 +35,13 @@ public class CompanyExchange {
     @JoinColumn(name="exchange_id", nullable=true)
     private StockExchange stockExchange;
 	
+	@OneToOne(mappedBy = "companyExchange", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private IpoPlanned ipoPlanned;
+	
 	@Column(name = "stock_code", length = 8)
     @Size(min = 3, max = 8)
 	private String stockCode;
-
+	
 	public String getId() {
 		return id;
 	}
@@ -58,7 +61,7 @@ public class CompanyExchange {
 	public StockExchange getStockExchange() {
 		return stockExchange;
 	}
-
+	
 	public void setStockExchange(StockExchange stockExchange) {
 		this.stockExchange = stockExchange;
 	}
@@ -69,5 +72,13 @@ public class CompanyExchange {
 
 	public void setStockCode(String stockCode) {
 		this.stockCode = stockCode;
+	}
+	
+	public IpoPlanned getIpoPlanned() {
+		return ipoPlanned;
+	}
+
+	public void setIpoPlanned(IpoPlanned ipoPlanned) {
+		this.ipoPlanned = ipoPlanned;
 	}
 }

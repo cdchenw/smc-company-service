@@ -1,6 +1,8 @@
 package com.smc.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -90,8 +92,10 @@ public class StockExchangeController {
 	 * @return ResponseEntity<String> JSON format response with delete success message
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable String id){
+	public ResponseEntity<Map<String, String>> delete(@PathVariable String id){
 		this.stockExchangeService.delete(id);
-		return ResponseEntity.ok("Delete stock exchange successfully.");
+		Map<String, String> rsMap= new HashMap<String, String>();
+		rsMap.put("message", "Successfully delete stock exchange with id=" + id);
+		return ResponseEntity.ok(rsMap);
 	}
 }
